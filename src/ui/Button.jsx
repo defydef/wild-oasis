@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled, { css } from "styled-components";
 
 const sizes = {
@@ -48,7 +49,7 @@ const variations = {
   `,
 };
 
-const Button = styled.button`
+const StyledButton = styled.button`
   border: none;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
@@ -57,9 +58,13 @@ const Button = styled.button`
   ${(props) => variations[props.variation]}
 `;
 
-Button.defaultProps = {
+StyledButton.defaultProps = {
   variation: "primary",
   size: "medium",
 };
+
+function Button({ onClick, children }) {
+  return <StyledButton onClick={onClick}>{children}</StyledButton>;
+}
 
 export default Button;
