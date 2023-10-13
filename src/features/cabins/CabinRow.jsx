@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
+import Button from "../../ui/Button";
 
 const TableRow = styled.div`
   display: grid;
@@ -48,9 +49,10 @@ function CabinRow({ cabin }) {
     <TableRow role="row">
       <Img src={image} />
       <Cabin>{name}</Cabin>
-      <div>{maxCapacity}</div>
+      <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
+      <Button>Delete</Button>
     </TableRow>
   );
 }
