@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -19,14 +17,14 @@ function CreateCabinForm() {
     mutationFn: createCabin,
     onSuccess: () => {
       toast.success("New cabin successfully inserted");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
+      queryClient.invalidateQueries({ queryKey: ["cabins"] }); // invalidate queries so React Query fetch latest data
+      reset(); // clear form
     },
     onError: (err) => toast.error(err.message),
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -100,7 +98,13 @@ function CreateCabinForm() {
       </FormRow>
 
       <FormRow label="Cabin photo" id="image" errors={errors}>
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          accept="image/*"
+          {...register("image", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow>
