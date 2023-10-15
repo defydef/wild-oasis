@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm({ cabinToEdit = { id: null } }) {
+function CreateCabinForm() {
   // const { id: editId, ...cabinValuesToEdit } = cabinToEdit;
   // const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, getValues, formState } = useForm({

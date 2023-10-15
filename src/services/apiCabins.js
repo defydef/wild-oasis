@@ -34,20 +34,24 @@ export async function createCabin(newCabin) {
     throw new Error("Cabin could not be inserted");
   }
 
+  // Check if cabin with the same image already exists
+  let { data: newCreatedCabin } = await supabase
+    .from("cabins")
+    .select("*")
+    .eq("image", imagePath);
+
+  // only create new cabin if the cabin does not exist yet
+  if (!newCreatedCabin)
+    await supabase.storage
+      .from("cabin-images")
+      .upload(imageName, newCabin.image);
+
   // 2. Upload image
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image);
 
-  await supabase.storage.from("cabin-images").upload(imageName, newCabin.image);
-
   if (storageError) {
-    // Get the newly created cabin
-    let { data: newCreatedCabin } = await supabase
-      .from("cabins")
-      .select("*")
-      .eq("image", imagePath);
-
     // Delete the new cabin if cabin image couldn't be uploaded
     deleteCabin(newCreatedCabin.at(0).id);
     console.error(storageError);
