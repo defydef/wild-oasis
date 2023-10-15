@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -9,8 +10,12 @@ import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import FormRow from "../../ui/FormRow";
 
-function CreateCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
+function CreateCabinForm({ cabinToEdit }) {
+  const { id: editId, ...cabinValuesToEdit } = cabinToEdit;
+  const isEditSession = Boolean(editId);
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
+    defaultValues: isEditSession ? cabinValuesToEdit : {},
+  });
   const { errors } = formState;
   const queryClient = useQueryClient();
   const { isLoading: isCreating, mutate } = useMutation({
