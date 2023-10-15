@@ -19,7 +19,7 @@ export async function deleteCabin(id) {
 
 export async function createCabin(newCabin) {
   // 1. Create Cabin
-  // https://ugrivjxpaqykelfdioev.supabase.co/storage/v1/object/public/cabin-images/cabin-008.jpg
+  // https://ugrivjxpaqykelfdioev.supabase.co/storage/v1/object/public/cabin-images/0.11715384344302948-cabin-006.jpg
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
     "/",
     ""
