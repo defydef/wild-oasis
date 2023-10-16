@@ -6,6 +6,7 @@ import { useDeleteCabin } from "./useDeleteCabin";
 import Button from "../../ui/Button";
 import ButtonGroup from "../../ui/ButtonGroup";
 import CreateCabinForm from "./CreateCabinForm";
+import useCreateUpdateCabin from "./useCreateUpdateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -51,6 +52,20 @@ function CabinRow({ cabin }) {
     cabin;
   const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateUpdateCabin();
+  const isWorking = isDeleting || isCreating;
+
+  function handleDuplicate() {
+    const duplicatedCabin = {
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      description,
+      image,
+    };
+    createCabin({ ...duplicatedCabin });
+  }
 
   return (
     <>
@@ -65,14 +80,17 @@ function CabinRow({ cabin }) {
           <span>&mdash;</span>
         )}
         <ButtonGroup>
-          <Button onClick={() => deleteCabin(id)} disabled={isDeleting}>
-            Delete
+          <Button disabled={isWorking} onClick={handleDuplicate}>
+            Duplicate
           </Button>
           <Button
             onClick={() => setShowForm((show) => !show)}
-            disabled={isDeleting}
+            disabled={isWorking}
           >
             Edit
+          </Button>
+          <Button onClick={() => deleteCabin(id)} disabled={isWorking}>
+            Delete
           </Button>
         </ButtonGroup>
       </TableRow>

@@ -1,7 +1,4 @@
 import styled from "styled-components";
-
-import { useQuery } from "@tanstack/react-query";
-import getCabins from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import ErrorFallback from "../../ui/ErrorFallback";
 import CabinRow from "./CabinRow";
