@@ -21,26 +21,28 @@ function UpdateSettingsForm() {
 
   const { isEditing, editSettings } = useUpdateSettings();
 
-  function onSubmit(data) {
-    editSettings(
-      { newSettings: { ...data } },
-      {
-        onSuccess: (data) => {
-          // console.log(data); // edited settings
-        },
-      }
-    );
-  }
+  // function onSubmit(data) {
+  //   editSettings(
+  //     { newSettings: { ...data } },
+  //     {
+  //       onSuccess: (data) => {
+  //         // console.log(data); // edited settings
+  //       },
+  //     }
+  //   );
+  // }
 
-  function onError(errors) {
-    console.log(errors);
+  function handleUpdate(e, fieldName) {
+    const { value } = e.target;
+    if (!value) return;
+    editSettings({ [fieldName]: value });
   }
 
   if (isLoadingSettings) return <Spinner />;
   if (retrieveSettingsError)
     return <ErrorFallback error={retrieveSettingsError} />;
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form>
       <FormRow label="Minimum nights/booking">
         <Input
           type="number"
@@ -50,6 +52,7 @@ function UpdateSettingsForm() {
             required: "This field is required",
           })}
           disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, "minBookingLength")}
         />
       </FormRow>
       <FormRow label="Maximum nights/booking">
@@ -61,6 +64,7 @@ function UpdateSettingsForm() {
             required: "This field is required",
           })}
           disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, "maxBookingLength")}
         />
       </FormRow>
       <FormRow label="Maximum guests/booking">
@@ -72,6 +76,7 @@ function UpdateSettingsForm() {
             required: "This field is required",
           })}
           disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
         />
       </FormRow>
       <FormRow label="Breakfast price">
@@ -83,10 +88,8 @@ function UpdateSettingsForm() {
             required: "This field is required",
           })}
           disabled={isEditing}
+          onBlur={(e) => handleUpdate(e, "breakfastPrice")}
         />
-      </FormRow>
-      <FormRow>
-        <Button>Update settings</Button>
       </FormRow>
     </Form>
   );
