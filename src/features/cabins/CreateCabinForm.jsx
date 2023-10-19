@@ -52,7 +52,10 @@ function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onClose ? "modal" : "regular"}
+    >
       <FormRow label="Cabin name" errors={errors}>
         <Input
           type="text"
