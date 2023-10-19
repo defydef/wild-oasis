@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import useCreateUpdateCabin from "./useCreateUpdateCabin";
 
-function CreateCabinForm({ cabinToEdit = { id: null } }) {
+function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
   const { id: editId, ...cabinValuesToEdit } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
@@ -30,6 +30,7 @@ function CreateCabinForm({ cabinToEdit = { id: null } }) {
           onSuccess: (data) => {
             console.log(data); // edited cabin
             reset();
+            onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
           },
         }
       );
@@ -40,6 +41,7 @@ function CreateCabinForm({ cabinToEdit = { id: null } }) {
           onSuccess: (data) => {
             console.log(data); // newly created cabin
             reset();
+            onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
           },
         }
       );
@@ -127,7 +129,7 @@ function CreateCabinForm({ cabinToEdit = { id: null } }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button $variation="secondary" type="reset">
+        <Button $variation="secondary" type="reset" onClick={onClose}>
           Cancel
         </Button>
         <Button disabled={isWorking}>
