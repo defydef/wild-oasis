@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 import styled from "styled-components";
 
 const StyledTable = styled.div`
@@ -11,7 +12,7 @@ const StyledTable = styled.div`
 
 const CommonRow = styled.div`
   display: grid;
-  grid-template-columns: ${(props) => props.columns};
+  grid-template-columns: ${(props) => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -52,6 +53,18 @@ const Footer = styled.footer`
   }
 `;
 
+const TableRow = styled.div`
+  display: grid;
+  /* grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr; */
+  column-gap: 2.4rem;
+  align-items: center;
+  padding: 1.4rem 2.4rem;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color-grey-100);
+  }
+`;
+
 const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
@@ -59,14 +72,42 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-function Table() {
+// 1. Create a context
+const TableContext = createContext();
+
+// 2. Create a parent component
+function Table({ children, columns }) {
   return (
-    <StyledTable>
-      <StyledHeader>header</StyledHeader>
-      <StyledBody>body</StyledBody>
-      <Footer>footer</Footer>
-    </StyledTable>
+    <TableContext.Provider value={{ columns }}>
+      <StyledTable role="table">{children}</StyledTable>
+    </TableContext.Provider>
   );
 }
+
+// 3.Create child components that implement common tasks
+function Header({ children }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <StyledHeader role="row" $columns={columns}>
+      {children}
+    </StyledHeader>
+  );
+}
+function Body({ children }) {
+  return <StyledBody>{children}</StyledBody>;
+}
+function Row({ children }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <StyledRow role="row" $columns={columns}>
+      {children}
+    </StyledRow>
+  );
+}
+
+// 4. Add child components to the parent component
+Table.Header = Header;
+Table.Body = Body;
+Table.Row = Row;
 
 export default Table;
