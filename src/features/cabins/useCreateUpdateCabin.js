@@ -16,7 +16,7 @@ function useCreateUpdateCabin() {
   const { isLoading: isEditing, mutate: editCabin } = useMutation({
     mutationFn: ({ newCabinData, id }) => createEditCabin(newCabinData, id),
     onSuccess: () => {
-      toast.success("Cabin successfully edited");
+      toast.success("Cabin successfully updated");
       queryClient.invalidateQueries({ queryKey: ["cabins"] }); // invalidate queries so React Query fetch latest data
     },
     onError: (err) => toast.error(err.message),

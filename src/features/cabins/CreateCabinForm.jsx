@@ -27,8 +27,7 @@ function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
       editCabin(
         { newCabinData: { ...data, image }, id: editId },
         {
-          onSuccess: (data) => {
-            console.log(data); // edited cabin
+          onSuccess: () => {
             reset();
             onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
           },
@@ -38,8 +37,7 @@ function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
       createCabin(
         { ...data, image },
         {
-          onSuccess: (data) => {
-            console.log(data); // newly created cabin
+          onSuccess: () => {
             reset();
             onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
           },
@@ -136,7 +134,7 @@ function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
           Cancel
         </Button>
         <Button disabled={isWorking}>
-          {isEditSession ? "Edit cabin" : "Create new cabin"}
+          {isEditSession ? "Update cabin" : "Create new cabin"}
         </Button>
       </FormRow>
     </Form>
