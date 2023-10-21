@@ -1,6 +1,8 @@
 import Button from "../../ui/Button";
-import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import Modal, { useModal } from "../../ui/Modal";
 import DeleteCabinForm from "./DeleteCabinForm";
+import { useDeleteCabin } from "./useDeleteCabin";
 
 function DeleteCabin({ id, isDisabled }) {
   return (
@@ -15,7 +17,15 @@ function DeleteCabin({ id, isDisabled }) {
       />
       <Modal.Window
         name="delete-cabin-form"
-        renderForm={(onClose) => <DeleteCabinForm onClose={onClose} id={id} />}
+        // renderForm={(onClose) => <DeleteCabinForm onClose={onClose} id={id} />}
+        renderForm={(onClose) => (
+          <ConfirmDelete
+            onClose={onClose}
+            id={id}
+            resourceName="cabin"
+            disabled={isDisabled}
+          />
+        )}
       />
     </Modal>
   );

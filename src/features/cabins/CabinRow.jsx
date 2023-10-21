@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import { useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import { useDeleteCabin } from "./useDeleteCabin";
 import Button from "../../ui/Button";
 import ButtonGroup from "../../ui/ButtonGroup";
-import CreateCabinForm from "./CreateCabinForm";
 import useCreateUpdateCabin from "./useCreateUpdateCabin";
 import DeleteCabin from "./DeleteCabin";
 import UpdateCabin from "./UpdateCabin";
@@ -73,35 +71,33 @@ function CabinRow({ cabin }) {
   // }
 
   return (
-    <>
-      <TableRow role="row">
-        <Img src={image} />
-        <Cabin>{name}</Cabin>
-        <div>Fits up to {maxCapacity} guests</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
-        <ButtonGroup>
-          <Button disabled={isWorking} onClick={handleDuplicate}>
-            Duplicate
-          </Button>
-          {/* <Button
+    <TableRow role="row">
+      <Img src={image} />
+      <Cabin>{name}</Cabin>
+      <div>Fits up to {maxCapacity} guests</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
+      <ButtonGroup>
+        <Button disabled={isWorking} onClick={handleDuplicate}>
+          Duplicate
+        </Button>
+        {/* <Button
             onClick={() => setShowForm((show) => !show)}
             disabled={isWorking}
           >
             Edit
           </Button> */}
-          <UpdateCabin disabled={isWorking} cabin={cabin} />
-          {/* <Button onClick={handleDelete} disabled={isWorking}>
+        <UpdateCabin disabled={isWorking} cabin={cabin} />
+        {/* <Button onClick={handleDelete} disabled={isWorking}>
             Delete
           </Button> */}
-          <DeleteCabin id={id} isDisabled={isWorking} />
-        </ButtonGroup>
-      </TableRow>
-    </>
+        <DeleteCabin id={id} isDisabled={isWorking} />
+      </ButtonGroup>
+    </TableRow>
   );
 }
 
