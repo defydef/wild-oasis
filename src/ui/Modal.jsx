@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import useDeteckClickOutside from "../hooks/useDeteckClickOutside";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -79,20 +81,7 @@ function Open({ opens: opensWindowName, renderButton }) {
 function Window({ name, renderForm }) {
   const { openName, close } = useContext(ModalContext);
   const ref = useRef();
-
-  useEffect(
-    function () {
-      function handleClick(e) {
-        if (ref.current && !ref.current.contains(e.target)) close();
-      }
-      document.addEventListener("click", handleClick, true);
-      // if third argument (true) is not specified, the if condition in line 86 will still be called
-      // even if the Modal is not opened
-
-      return document.removeEventListener("click", handleClick);
-    },
-    [close]
-  );
+  useDeteckClickOutside(ref); // Detect click outside Modal
 
   if (name !== openName) return null;
   return createPortal(
@@ -112,5 +101,15 @@ function Window({ name, renderForm }) {
 // 4. Add child components to the parent component
 Modal.Open = Open;
 Modal.Window = Window;
+
+// 5. Export contexts inside Modal
+export function useModal() {
+  const context = useContext(ModalContext);
+  if (context === undefined)
+    throw new Error(
+      "useModal is undefined because it is defined inside the children component of Modal"
+    );
+  return context;
+}
 
 export default Modal;
