@@ -58,3 +58,15 @@ const Empty = styled.p`
   text-align: center;
   margin: 2.4rem;
 `;
+
+function Table() {
+  return (
+    <StyledTable>
+      <StyledHeader>header</StyledHeader>
+      <StyledBody>body</StyledBody>
+      <Footer>footer</Footer>
+    </StyledTable>
+  );
+}
+
+export default Table;
