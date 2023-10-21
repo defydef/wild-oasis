@@ -7,6 +7,7 @@ import ButtonGroup from "../../ui/ButtonGroup";
 import useCreateUpdateCabin from "./useCreateUpdateCabin";
 import DeleteCabin from "./DeleteCabin";
 import UpdateCabin from "./UpdateCabin";
+import { HiDocumentDuplicate } from "react-icons/hi2";
 
 const TableRow = styled.div`
   display: grid;
@@ -83,7 +84,7 @@ function CabinRow({ cabin }) {
       )}
       <ButtonGroup>
         <Button disabled={isWorking} onClick={handleDuplicate}>
-          Duplicate
+          <HiDocumentDuplicate />
         </Button>
         {/* <Button
             onClick={() => setShowForm((show) => !show)}
