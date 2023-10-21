@@ -6,16 +6,12 @@ function AddCabin() {
   return (
     <>
       <Modal>
-        <Modal.Open
-          opens="cabin-form"
-          renderButton={(openFunction) => (
-            <Button onClick={openFunction}>Add new cabin</Button>
-          )}
-        />
-        <Modal.Window
-          name="cabin-form"
-          renderForm={(onClose) => <CreateCabinForm onClose={onClose} />}
-        />
+        <Modal.Open opens="cabin-form">
+          <Button>Add new cabin</Button>
+        </Modal.Open>
+        <Modal.Window name="cabin-form">
+          <CreateCabinForm />
+        </Modal.Window>
       </Modal>
     </>
   );

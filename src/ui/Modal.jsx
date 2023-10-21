@@ -2,7 +2,14 @@
 import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import useDeteckClickOutside from "../hooks/useDeteckClickOutside";
 
 const StyledModal = styled.div`
@@ -71,17 +78,14 @@ function Modal({ children }) {
 }
 
 // 3.Create child components that implement common tasks
-function Open({ opens: opensWindowName, renderButton }) {
+function Open({ children, opens: opensWindowName }) {
   const { open } = useContext(ModalContext);
-  return renderButton(() => open(opensWindowName));
-
-  // return cloneElement(children, { onClick: () => open(opensWindowName) });
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-function Window({ name, renderForm }) {
+function Window({ name, children }) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useRef();
-  useDeteckClickOutside(ref); // Detect click outside Modal
+  const ref = useDeteckClickOutside(close); // Detect click outside Modal
 
   if (name !== openName) return null;
   return createPortal(
@@ -91,7 +95,8 @@ function Window({ name, renderForm }) {
         <Button onClick={close}>
           <HiXMark />
         </Button>
-        {renderForm(() => close())}
+        {/* {renderForm(() => close())} */}
+        <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,
     document.body

@@ -12,7 +12,7 @@ function DeleteCabin({ id, isDisabled }) {
         opens="delete-cabin-form"
         renderButton={(openFunction) => (
           <Button onClick={openFunction} disabled={isDisabled}>
-            <HiTrash />{" "}
+            <HiTrash />
           </Button>
         )}
       />

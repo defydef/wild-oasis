@@ -53,18 +53,6 @@ const Footer = styled.footer`
   }
 `;
 
-const TableRow = styled.div`
-  display: grid;
-  /* grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr; */
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
-
 const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
@@ -93,7 +81,9 @@ function Header({ children }) {
     </StyledHeader>
   );
 }
-function Body({ arr, renderArrItem }) {
+function Body({ arr, renderArrItem, arrItemName }) {
+  if (arr.length === 0)
+    return <Empty>No {arrItemName} data to show at the moment.</Empty>;
   return <StyledBody>{arr.map(renderArrItem)}</StyledBody>;
 }
 function Row({ children }) {

@@ -1,13 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useModal } from "../ui/Modal";
 
-function useDeteckClickOutside(component) {
-  const { close } = useModal();
+function useDeteckClickOutside(closeFunction) {
+  const ref = useRef();
 
   useEffect(
     function () {
       function handleClick(e) {
-        if (component.current && !component.current.contains(e.target)) close();
+        if (ref.current && !ref.current.contains(e.target)) closeFunction();
       }
       document.addEventListener("click", handleClick, true);
       // if third argument (true) is not specified, the if condition in line 10 will still be called,
@@ -15,8 +15,9 @@ function useDeteckClickOutside(component) {
 
       return document.removeEventListener("click", handleClick);
     },
-    [close, component]
+    [closeFunction]
   );
+  return ref;
 }
 
 export default useDeteckClickOutside;

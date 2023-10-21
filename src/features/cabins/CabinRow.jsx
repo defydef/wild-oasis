@@ -9,6 +9,8 @@ import DeleteCabin from "./DeleteCabin";
 import UpdateCabin from "./UpdateCabin";
 import { HiDocumentDuplicate } from "react-icons/hi2";
 import Table from "../../ui/Table";
+import CabinMenus from "./CabinMenus";
+import Modal from "../../ui/Modal";
 
 const Img = styled.img`
   display: block;
@@ -71,22 +73,24 @@ function CabinRow({ cabin }) {
       ) : (
         <span>&mdash;</span>
       )}
-      <ButtonGroup>
-        <Button disabled={isWorking} onClick={handleDuplicate}>
+      {/* <ButtonGroup> */}
+      {/* <Button disabled={isWorking} onClick={handleDuplicate}>
           <HiDocumentDuplicate />
-        </Button>
-        {/* <Button
+        </Button> */}
+      {/* <Button
             onClick={() => setShowForm((show) => !show)}
             disabled={isWorking}
           >
             Edit
           </Button> */}
-        <UpdateCabin disabled={isWorking} cabin={cabin} />
-        {/* <Button onClick={handleDelete} disabled={isWorking}>
+      {/* <UpdateCabin disabled={isWorking} cabin={cabin} /> */}
+      {/* <Button onClick={handleDelete} disabled={isWorking}>
             Delete
           </Button> */}
-        <DeleteCabin id={id} isDisabled={isWorking} />
-      </ButtonGroup>
+      {/* <DeleteCabin id={id} isDisabled={isWorking} /> */}
+      {/* </ButtonGroup> */}
+
+      <CabinMenus id={id} onDuplicate={handleDuplicate} cabin={cabin} />
     </Table.Row>
   );
 }

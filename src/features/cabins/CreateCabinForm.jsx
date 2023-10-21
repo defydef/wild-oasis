@@ -7,10 +7,12 @@ import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import FormRow from "../../ui/FormRow";
 import useCreateUpdateCabin from "./useCreateUpdateCabin";
+import { useModal } from "../../ui/Modal";
 
 function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
   const { id: editId, ...cabinValuesToEdit } = cabinToEdit;
   const isEditSession = Boolean(editId);
+  const { close } = useModal();
 
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: isEditSession ? cabinValuesToEdit : {},
@@ -29,7 +31,8 @@ function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
         {
           onSuccess: () => {
             reset();
-            onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
+            close();
+            // onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
           },
         }
       );
@@ -39,7 +42,8 @@ function CreateCabinForm({ cabinToEdit = { id: null }, onClose }) {
         {
           onSuccess: () => {
             reset();
-            onClose?.(); //close the modal, using optional chaining in case the onClose function was undefined
+            onClose?.();
+            close(); //close the modal, using optional chaining in case the onClose function was undefined
           },
         }
       );

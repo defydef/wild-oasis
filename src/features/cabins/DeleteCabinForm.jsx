@@ -17,7 +17,9 @@ function DeleteCabinForm({ id }) {
       <FormRow>Are you sure you want to delete this cabin?</FormRow>
       <FormRow>
         <ButtonGroup>
-          <Button $variation="secondary">No</Button>
+          <Button $variation="secondary" onClick={close}>
+            No
+          </Button>
           <Button $variation="danger" onClick={handleDelete}>
             Yes
           </Button>
