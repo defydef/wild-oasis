@@ -1,6 +1,6 @@
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
-import Table from "../../ui/Table";
+import CabinTable from "./CabinTable";
 import CreateCabinForm from "./CreateCabinForm";
 
 function AddCabin() {
@@ -17,17 +17,15 @@ function AddCabin() {
           name="cabin-form"
           renderForm={(onClose) => <CreateCabinForm onClose={onClose} />}
         />
-      </Modal>
-      <Modal>
         <Modal.Open
           opens="table"
           renderButton={(openFunction) => (
-            <Button onClick={openFunction}>Show Table</Button>
+            <Button onClick={openFunction}>Show table</Button>
           )}
         />
         <Modal.Window
           name="table"
-          renderForm={(onClose) => <Table onClose={onClose} />}
+          renderForm={(onClose) => <CabinTable onClose={onClose} />}
         />
       </Modal>
     </>
