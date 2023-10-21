@@ -52,7 +52,6 @@ const Discount = styled.div`
 function CabinRow({ cabin }) {
   const { id, name, maxCapacity, regularPrice, discount, description, image } =
     cabin;
-  const [showForm, setShowForm] = useState(false);
   const { isDeleting } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateUpdateCabin();
   const isWorking = isDeleting || isCreating;
@@ -102,7 +101,6 @@ function CabinRow({ cabin }) {
           <DeleteCabin id={id} isDisabled={isWorking} />
         </ButtonGroup>
       </TableRow>
-      {showForm && <CreateCabinForm cabinToEdit={cabin} />}
     </>
   );
 }
