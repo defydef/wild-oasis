@@ -88,13 +88,13 @@ function Table({ children, columns }) {
 function Header({ children }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledHeader role="row" $columns={columns}>
+    <StyledHeader role="row" $columns={columns} as="header">
       {children}
     </StyledHeader>
   );
 }
-function Body({ children }) {
-  return <StyledBody>{children}</StyledBody>;
+function Body({ arr, renderArrItem }) {
+  return <StyledBody>{arr.map(renderArrItem)}</StyledBody>;
 }
 function Row({ children }) {
   const { columns } = useContext(TableContext);
